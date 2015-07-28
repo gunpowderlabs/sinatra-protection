@@ -1,8 +1,6 @@
 # Sinatra::Protection
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/sinatra/protection`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem provides a small, simple Sinatra extension that allows protecting the selected routes in your application with HTTP Basic Authentication.
 
 ## Installation
 
@@ -20,9 +18,49 @@ Or install it yourself as:
 
     $ gem install sinatra-protection
 
-## Usage
+## Usage for classic Sinatra apps
 
-TODO: Write usage instructions here
+```ruby
+require "sinatra"
+require "sinatra/protection"
+
+# optionally configure the credentials and realm
+
+set :username, "demo" # default: "admin"
+set :password, "pass" # default: "admin"
+set :realm, "My Application" # default: "Restricted Area"
+
+get "/protected" do
+  protected!
+  # do something that requires authentication
+end
+
+get "/" do
+  # this action will not require authentication
+end
+```
+
+## Usage for modular Sinatra apps
+
+```ruby
+require "sinatra"
+require "sinatra/protection"
+
+class MyApp < Sinatra::Application
+  register Sinatra::Protection
+
+  # configure and use as in the classical example
+end
+```
+
+## Disabling protection
+
+Sometimes you might want to completely disable HTTP authentication for the entire application. 
+The easiest way to do it is by setting:
+
+```ruby
+set :enable_protection, false
+```
 
 ## Development
 
@@ -32,7 +70,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/sinatra-protection. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/gunpowderlabs/sinatra-protection. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
 
 ## License
