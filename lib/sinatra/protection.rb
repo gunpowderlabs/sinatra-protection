@@ -1,7 +1,10 @@
 require "sinatra/contrib"
+require "sinatra/protection/version"
 
 module Sinatra
-  Protection = Sinatra::Extension.new do
+  module Protection
+    extend Sinatra::Extension
+
     set :username, "admin"
     set :password, "admin"
     set :realm, "Restricted Area"
@@ -24,5 +27,3 @@ module Sinatra
 
   register Protection
 end
-
-require "sinatra/protection/version"

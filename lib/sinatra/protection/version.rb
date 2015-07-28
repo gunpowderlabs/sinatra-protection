@@ -1,3 +1,5 @@
 module Sinatra
-  Protection::VERSION = "0.1.0"
+  module Protection
+    VERSION = "0.1.0"
+  end
 end
